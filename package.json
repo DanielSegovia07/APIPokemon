@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "chai": "^4.0.0",
+    "chai-http": "^4.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.5",
+    "redoc": "^2.2.0",
+    "redoc-express": "^2.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "devDependencies": {
+    "mocha": "^10.8.2"
+  }
+}

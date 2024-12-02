@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta API de Pokémon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        input {
+            padding: 5px;
+            margin: 5px 0;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta API de Pokémon</h1>
+    <div class="container">
+        <input type="text" id="pokemonId" placeholder="Ingresa el ID del Pokémon">
+        <button id="btnById" onclick="getPokemonById()">Consultar por ID</button>
+
+        <input type="text" id="pokemonName" placeholder="Ingresa el nombre del Pokémon">
+        <button onclick="getPokemonByName()">Consultar por Nombre</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Asignar evento al presionar Enter en el campo de ID
+        document.getElementById('pokemonId').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('btnById').click();
+            }
+        });
+
+        async function getPokemonById() {
+            const id = document.getElementById('pokemonId').value;
+            if (!id) {
+                alert('Por favor, ingresa un ID');
+                return;
+            }
+            try {
+                const response = await fetch(`http://localhost:3002/pokemon/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <h2>Resultado:</h2>
+                        <p><strong>ID:</strong> ${data.id}</p>
+                        <p><strong>Nombre:</strong> ${data.nombre}</p>
+                        <p><strong>Tipos:</strong> ${data.tipos}</p>
+                        <p><strong>Descripción:</strong> ${data.descripcion}</p>
+                        <img src="${data.imagen}" alt="${data.nombre}">
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `<p>Error: Pokémon no encontrado.</p>`;
+                }
+            } catch (error) {
+                console.error('Error al consultar:', error);
+                alert('Error al consultar la API');
+            }
+        }
+
+        async function getPokemonByName() {
+            const name = document.getElementById('pokemonName').value;
+            if (!name) {
+                alert('Por favor, ingresa un nombre');
+                return;
+            }
+            try {
+                const response = await fetch(`http://localhost:3002/pokemon/nombre/${name}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <h2>Resultado:</h2>
+                        <p><strong>ID:</strong> ${data.id}</p>
+                        <p><strong>Nombre:</strong> ${data.nombre}</p>
+                        <p><strong>Tipos:</strong> ${data.tipos}</p>
+                        <p><strong>Descripción:</strong> ${data.descripcion}</p>
+                        <img src="${data.imagen}" alt="${data.nombre}">
+                    `;
+                } else {
+                    document.getElementById('result').innerHTML = `<p>Error: Pokémon no encontrado.</p>`;
+                }
+            } catch (error) {
+                console.error('Error al consultar:', error);
+                alert('Error al consultar la API');
+            }
+        }
+    </script>
+</body>
+</html>
