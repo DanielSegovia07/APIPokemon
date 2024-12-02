@@ -37,7 +37,12 @@ const swaggerOptions = {
 
 //? Middlewares
 const app = express();
-app.use(cors());
+// Configuración de CORS
+app.use(cors({
+    origin: '*', // Permitir todas las solicitudes. Cambia '*' por una URL específica en producción.
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
 app.use(express.json());
 
 //? Conexion a la base de datos
