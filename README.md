@@ -1,4 +1,17 @@
-## Descripción de la API
+# API de Pokémon
 
-**Pokémon API** es una API RESTful desarrollada en Node.js con MySQL que permite acceder y gestionar información detallada sobre los Pokémon. Con esta API, puedes obtener, agregar, actualizar y eliminar datos relacionados con los Pokémon, incluyendo sus nombres, tipos, descripciones e imágenes.
+## 📖 Descripción
 
+La **API de Pokémon** es una API RESTful construida con **Node.js** y **MySQL**. Su objetivo principal es facilitar el acceso y la gestión de datos relacionados con los Pokémon. Entre sus funcionalidades, se incluyen:
+
+- Consultar información detallada de los Pokémon.
+- Añadir nuevos Pokémon a la base de datos.
+- Modificar los datos existentes.
+- Eliminar registros específicos.
+
+### 📋 Datos gestionados
+
+- **Nombre**: Identificador principal del Pokémon.
+- **Tipos**: Categorías a las que pertenece (e.g., Fuego, Agua, Eléctrico).
+- **Descripción**: Detalles adicionales sobre las características del Pokémon.
+- **Imagen**: Enlace a una representación visual del Pokémon.
