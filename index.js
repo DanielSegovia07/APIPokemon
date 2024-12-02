@@ -671,7 +671,24 @@ app.delete('/pokemon/nombre/:nombre', (req, res) => {
  *         tipos: "eléctrico"
  *         descripcion: "Pokémon ratón conocido por su ataque eléctrico impactrueno."
  *         imagen: "https://example.com/pikachu.png"
+ * 
+ *     Error:
+ *       type: object
+ *       required:
+ *         - code
+ *         - message
+ *       properties:
+ *         code:
+ *           type: integer
+ *           description: Código de error HTTP.
+ *         message:
+ *           type: string
+ *           description: Descripción del error.
+ *       example:
+ *         code: 404
+ *         message: "El Pokémon no fue encontrado."
  */
+
 
 
 //? Configuración del Swagger
