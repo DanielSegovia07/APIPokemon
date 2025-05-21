@@ -6,6 +6,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mysql2": "^3.11.5",
+    "pg": "^8.16.0",
     "redoc": "^2.2.0",
     "redoc-express": "^2.1.0",
     "swagger-jsdoc": "^6.2.8",
