@@ -57,16 +57,18 @@ const pool = new Pool({
 
 //? Rutas del servidor (modificadas para PostgreSQL)
 
+
 // GET /pokemon
 app.get('/pokemon', async (req, res) => {
     try {
-        const { rows } = await pool.query('SELECT * FROM Pokemon');
+        const { rows } = await pool.query('SELECT * FROM Pokemon ORDER BY id ASC');
         res.json(rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Error al obtener los Pokémon.' });
     }
 });
+
 
 // GET /pokemon/:id
 app.get('/pokemon/:id', async (req, res) => {
@@ -120,22 +122,22 @@ app.post('/pokemon', async (req, res) => {
 app.patch('/pokemon/:id', async (req, res) => {
     const { id } = req.params;
     const campos = req.body;
-    
+
     if (Object.keys(campos).length === 0) {
         return res.status(400).json({ error: 'Debe proporcionar al menos un campo para actualizar.' });
     }
-    
+
     const columnas = Object.keys(campos).map((key, index) => `${key} = $${index + 1}`).join(', ');
     const valores = Object.values(campos);
-    
+
     try {
         const query = `UPDATE Pokemon SET ${columnas} WHERE id = $${valores.length + 1} RETURNING *`;
         const { rows } = await pool.query(query, [...valores, id]);
-        
+
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Pokémon no encontrado.' });
         }
-        
+
         res.json({ mensaje: 'Pokémon actualizado exitosamente.' });
     } catch (err) {
         console.error(err);
@@ -147,22 +149,22 @@ app.patch('/pokemon/:id', async (req, res) => {
 app.patch('/pokemon/nombre/:nombre', async (req, res) => {
     const { nombre } = req.params;
     const campos = req.body;
-    
+
     if (Object.keys(campos).length === 0) {
         return res.status(400).json({ error: 'Debe proporcionar al menos un campo para actualizar.' });
     }
-    
+
     const columnas = Object.keys(campos).map((key, index) => `${key} = $${index + 1}`).join(', ');
     const valores = Object.values(campos);
-    
+
     try {
         const query = `UPDATE Pokemon SET ${columnas} WHERE nombre = $${valores.length + 1} RETURNING *`;
         const { rows } = await pool.query(query, [...valores, nombre]);
-        
+
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Pokémon no encontrado.' });
         }
-        
+
         res.json({ mensaje: 'Pokémon actualizado exitosamente.' });
     } catch (err) {
         console.error(err);
